@@ -1,67 +1,86 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import ReactDOMServer from 'react-dom/server';
+import pdf from 'html-pdf';
 import * as html2canvas from 'html2canvas';
 import * as jsPDF from 'jspdf';
 
-class Apptest extends Component {
-  // render() {
-  //   return (
-  //     <div className="App">
-  //       <header className="App-header">
-  //         <img src={logo} className="App-logo" alt="logo" />
-  //         <h1 className="App-title">Welcome to React</h1>
-  //       </header>
-  //       <p className="App-intro">
-  //         To get started, edit <code>src/App.js</code> and save to reload.
-  //       </p>
-  //     </div>
-  //   );
-  // }
-  printDocument() {
-    const input = document.getElementById('divToPrint');
-    html2canvas(input)
-      .then((canvas) => {
-        const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF();
-        pdf.addImage(imgData, 'JPEG', 0, 0);
-        // pdf.output('dataurlnewwindow');
-        pdf.save("download.pdf");
-      })
-    ;
-  }
-  render() {
-    return (<div>
-      <div className="mb5">
-        <button onClick={this.printDocument}>Print</button>
-      </div>
-      <div id="divToPrint" className="mt4" style={{
-        backgroundColor: '#f5f5f5',
-        width: '210mm',
-        minHeight: '297mm',
-        marginLeft: 'auto',
-        marginRight: 'auto'
-      }}>
-        <div>Note: Here the dimensions of div are same as A4</div> 
-        <div>You Can add any component here</div>
-        <img src={logo} className="App-logo" alt="logo" />
-      </div>
-    </div>);
-  }
-
+class PrintComponent extends Component {
+ render() {
+   return (<div>Hello</div>);
+ }
 }
 
-  class App extends React.Component {
-    render () {
-    return (
-      <div>
-      <img src="https://avatars3.githubusercontent.com/u/39902?v=4"/>
-      <div>
-        <div>My name..</div>
-        <div> My address..</div>
-      </div>
-    </div>
-    )
-    };
-  };
+function SampleComponent(props) {
+ return (
+   <div className="SampleComponent">
+     {props.text}
+   </div>
+ );
+}
+
+class App extends React.Component {
+  printDocument() {
+
+    const input =document.getElementById('divToPrint');
+    console.log(input)
+    html2canvas(input)
+
+      .then((canvas) => {
+
+        const imgData = canvas.toDataURL('image/png');
+
+        const pdf = new jsPDF();
+
+        pdf.addImage(imgData, 'JPEG', 0, 0);
+
+        // pdf.output('dataurlnewwindow');
+
+        pdf.save("download.pdf");
+
+      });
+    }
+  render () {
+    //  let html = ReactDOMServer.renderToStaticMarkup(
+    //    <SampleComponent text="Hello World" />
+    //  );
+    //  console.log(html);
+     
+    //  var options = { format: 'Letter' };
+
+    //  pdf.create(html, options).toFile('./businesscard.pdf', function(err, res) {
+    //    if (err) return console.log(err);
+    //    console.log(res); // { filename: '/app/businesscard.pdf' }
+    //  });
+    //  pdf.create(html).toBuffer(function(err, buffer){
+    //   console.log('This is a buffer:', Buffer.isBuffer(buffer));
+    // });
+     return (
+      <div id="divToPrint" className="mt4" style={{
+
+        backgroundColor: '#f5f5f5',
+
+        width: '210mm',
+
+        minHeight: '297mm',
+
+        marginLeft: 'auto',
+
+        marginRight: 'auto'
+
+      }}>
+
+       <div>
+       <div>
+         <div><SampleComponent text="Hello World" /></div>
+         <div>My name..</div>
+         <div> My address..</div>
+         <button onClick={this.printDocument}>Print</button>
+       </div>
+     </div>
+     </div>
+     )
+   };
+ };
 export default App;

@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@nivo/heatmap": "^0.40.0",
+    "@nivo/line": "^0.40.0",
     "html2canvas": "^1.0.0-alpha.12",
     "jspdf": "^1.4.0",
     "react": "^16.4.0",
